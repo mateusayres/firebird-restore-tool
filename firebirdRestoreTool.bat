@@ -54,6 +54,16 @@ if errorlevel 1 (
     exit /b
 )
 
+rem Tenta encerrar o processo em execução especificado que impossibilita a copia dos arquivos finais para substituir o BD
+set "processo=Sghspd.exe"
+taskkill /IM "%processo%" /F >nul 2>&1
+if %ERRORLEVEL% == 0 (
+    call :atualizarTimeStamp
+    echo !TIMESTAMP! :: [INFO] O processo "%processo%" estava em execucao e foi encerrado com sucesso. >> "%logGeral%"
+    echo !TIMESTAMP! :: [INFO] O processo "%processo%" estava em execucao e foi encerrado com sucesso.
+    exit /b
+)
+
 rem Verifica se o log de arquivos existe e lê o último arquivo descompactado
 if exist "%logArquivos%" (
     for /f "tokens=*" %%A in ('type "%logArquivos%"') do set "ultimoArquivoDescompactado=%%A"
