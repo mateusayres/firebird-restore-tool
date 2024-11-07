@@ -61,7 +61,6 @@ if %ERRORLEVEL% == 0 (
     call :atualizarTimeStamp
     echo !TIMESTAMP! :: [INFO] O processo "%processo%" estava em execucao e foi encerrado com sucesso. >> "%logGeral%"
     echo !TIMESTAMP! :: [INFO] O processo "%processo%" estava em execucao e foi encerrado com sucesso.
-    exit /b
 )
 
 rem Verifica se o log de arquivos existe e lê o último arquivo descompactado
