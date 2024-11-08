@@ -26,7 +26,5 @@ Funcionalidades principais: <br>
 Com essa ferramenta, a restauração de dados torna-se mais simples e automatizada, economizando tempo e minimizando erros humanos. É uma solução robusta e confiável para administradores de sistemas e DBAs que buscam agilidade no processo de recuperação de bancos de dados Firebird.
 
 Preview: <br>
-![001](https://github.com/user-attachments/assets/803dd9de-893d-48e9-8516-2face5ab1ce2)
-![002](https://github.com/user-attachments/assets/95874697-b60e-45be-8c77-d5e1d9f469a1)
-
-
+![001Edit](https://github.com/user-attachments/assets/6a946c94-d715-4309-9caa-cf8e30656e41)
+![002Edit](https://github.com/user-attachments/assets/e5b9dc52-8407-494d-ade0-2a5ac8577de0)
