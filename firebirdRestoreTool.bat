@@ -226,6 +226,27 @@ if errorlevel 1 exit /b 1
 call :executaRestauracao "!arquivo3!" "!caminhoBdRestor3!"
 if errorlevel 1 exit /b 1
 
+rem Tenta encerrar o processo em execução especificado que impossibilita a copia dos arquivos finais para substituir o BD
+set "processo=Sghspd.exe"
+taskkill /IM "%processo%" /F >nul 2>&1
+if %ERRORLEVEL% == 0 (
+    call :atualizarTimeStamp
+    echo !TIMESTAMP! :: [INFO] O processo "%processo%" estava em execucao e foi encerrado com sucesso. >> "%logGeral%"
+    echo !TIMESTAMP! :: [INFO] O processo "%processo%" estava em execucao e foi encerrado com sucesso.
+)
+
+rem Tenta finalizar o serviço Firebird para evitar erros ao copiar os arquivos
+net stop FirebirdServerDefaultInstance >nul 2>&1
+if %ERRORLEVEL% == 0 (
+    call :atualizarTimeStamp
+    echo !TIMESTAMP! :: [INFO] O serviço do Firebird.exe foi finalizado com sucesso. >> "%logGeral%"
+    echo !TIMESTAMP! :: [INFO] O serviço do Firebird.exe foi finalizado com sucesso.
+) else (
+    call :atualizarTimeStamp
+    echo !TIMESTAMP! :: [INFO] O serviço do Firebird.exe não pôde ser finalizado ou já estava parado. >> "%logGeral%"
+    echo !TIMESTAMP! :: [INFO] O serviço do Firebird.exe não pôde ser finalizado ou já estava parado.
+)
+
 goto :IniciarFuncaoCopiaFinal
 
 rem Inicio da cópia para a pasta final.
@@ -259,6 +280,18 @@ if errorlevel 1 exit /b 1
 
 call :copiaFinal "!nomeDoBanco3!"
 if errorlevel 1 exit /b 1
+
+rem Tenta iniciar o serviço Firebird após a substituição dos arquivos
+net start FirebirdServerDefaultInstance >nul 2>&1
+if %ERRORLEVEL% == 0 (
+    call :atualizarTimeStamp
+    echo !TIMESTAMP! :: [INFO] O serviço do Firebird.exe foi iniciado com sucesso. >> "%logGeral%"
+    echo !TIMESTAMP! :: [INFO] O serviço do Firebird.exe foi iniciado com sucesso.
+) else (
+    call :atualizarTimeStamp
+    echo !TIMESTAMP! :: [INFO] O serviço do Firebird.exe não pôde ser iniciado ou já estava em execução. >> "%logGeral%"
+    echo !TIMESTAMP! :: [INFO] O serviço do Firebird.exe não pôde ser iniciado ou já estava em execução.
+)
 
 rem Se todas as cópias foram bem-sucedidas, exibe mensagem de sucesso
 call :atualizarTimeStamp
